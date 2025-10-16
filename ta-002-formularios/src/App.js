@@ -1,24 +1,57 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
 
 function App() {
+  const [datos, setDatos] = useState({
+    nombre: '',
+    edad: '',
+    estudios: false,
+  })
+
+  function cambiarNombre(e){
+    setDatos((valores) => ({
+      ...valores,
+      nombre: e.target.value
+    }))
+  }
+  function cambiarEdad(e){
+    setDatos((valores) => ({
+      ...valores,
+      edad: e.target.value
+    }))
+  }
+  function cambiarEstudio(e){
+    setDatos((valores) => ({
+      ...valores,
+      estudios: !datos.estudios
+    }))
+  }
+
+  function procesar(e){
+    e.preventDefault();
+    alert('Datos cargados ' + datos.nombre + ' ' + datos.edad + ' ' + datos.estudios)
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
+    <div>
+      <form onSubmit={procesar}>
+        <p>Ingrese su nombre:
+          <input type = 'text' value = {datos.nombre} onChange={ cambiarNombre }/>
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+        <p>Ingrese su edad:
+          <input type = 'number' value = {datos.edad} onChange={ cambiarEdad }/>
+        </p>
+        <p>estudios:
+          <input type = 'checkbox' value = {datos.estudios} onChange={ cambiarEstudio }/>
+        </p>
+        <p><input type='submit'/></p>        
+      </form>
+      <h3>Datos ingresados:</h3>
+      <p>Nombre : {datos.nombre}</p>
+      <p>Edad : {datos.edad}</p>
+      <p>Estudios : {datos.estudios ? 'Con estudios' : 'Sin estudios'}</p>
+
+    </div>   
   );
 }
 
