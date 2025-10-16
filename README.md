@@ -1,4 +1,2 @@
-# Gestcar
-Ejercicios de practica.
-
-Para la implementacion de proyecto en REACT Y SPRING BOOT
+# Ejercicios de practica.
+Ejercicios de practica previos, para la implementacion de proyecto en REACT Y SPRING BOOT
