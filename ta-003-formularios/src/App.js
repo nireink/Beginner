@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {useState} from 'react';
 import './App.css';
 
 
@@ -6,19 +6,20 @@ function App() {
   
   const [numero,setNumero] = useState('');
 
-  function cambiarNumero(event){
+  function cambiarNumero(event) {
     const entrada = event.target.value;
     console.log(entrada.length);
     let cant = 0;
 
-    for (let x = 0;x < entrada.length;x++) {
-      if (entrada[x] == '0' || entrada[x] == '1') {
-        cant ++;
+    for (let x = 0; x < entrada.length; x++) {
+      if (entrada[x] === '0' || entrada[x] === '1') {
+        cant++;
+      }
+      if (cant === entrada.length) {
+        setNumero(entrada);
       }
     }     
-          if (cant === entrada.length) {
-        setNumero(entrada);
-      }    
+   
   }
 
   return (
