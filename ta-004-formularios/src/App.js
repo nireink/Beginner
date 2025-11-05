@@ -1,4 +1,5 @@
-import logo from './logo.svg';
+
+
 import './App.css';
 import { useState } from 'react';
 
@@ -12,7 +13,13 @@ function App() {
 
   return (
     <div>
+      <p>
       <textarea value={texto} onChange={cambiarTexto} cols="100" rows="5"></textarea>
+      </p>
+      <p>
+      <textarea value={texto} cols="100" rows="5"></textarea>
+      </p>
+      <p>Cantidad de caracteres ingresados: {texto.length} </p>
     </div>
   );
 }
