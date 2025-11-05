@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
 import { rubros } from './datos.js';
@@ -7,21 +6,21 @@ import { articulos } from './datos.js';
 function App() {
 
   const [rubro, setRubro] = useState(rubros[0]);
-  const [articuloRubro, setArticuloRubro] = useState(articulos.filter(articulo => articulo.codigoRubro === rubro.codigo));
-  const [articulo, setArticulo] = useState(articuloRubro[0]);
+  const [articulosRubro, setArticuloRubro] = useState(articulos.filter(articulo => articulo.codigoRubro === rubro.codigo));
+  const [articulo, setArticulo] = useState(articulosRubro[0]);
 
   function cambiarRubro(e){
     setRubro(rubros.find(rubro => rubro.codigo === Number.parseInt(e.target.value)));
-    const articulosRubro = articulos.filter(articulo => articulo.codigoRubro === Number.parseInt(e.target.value));
-    setArticuloRubro(articulosRubro);
-    setArticulo(articulosRubro[0]);
+    const articulosrubro = articulos.filter(articulo => articulo.codigoRubro === Number.parseInt(e.target.value));
+    setArticuloRubro(articulosrubro);
+    setArticulo(articulosrubro[0]);
   }
 
   function cambiarArticulo(e){
-    setArticulo(articuloRubro.find(articulo => articulo.codigo === Number.parseInt(e.target.value)));  
+    setArticulo(articulosRubro.find(articulo => articulo.codigo === Number.parseInt(e.target.value)));  
   }
   return (
-    <div className='formulario'>
+    <div className="App">
       <div>
         <select value={rubro.codigo} onChange={cambiarRubro}>
           {rubros.map(rubro => (
@@ -33,7 +32,7 @@ function App() {
       </div>
       <div>
         <select value={articulos.codigo} onChange={cambiarArticulo}>
-          {articuloRubro.map(articulo => (
+          {articulosRubro.map(articulo => (
             <option key={articulo.codigo} value={articulo.codigo}>
               {articulo.nombre}
             </option>

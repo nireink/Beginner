@@ -9,7 +9,7 @@ const rubros = [{
 {
     codigo: 3,
     nombre: 'Gabinetes'
-},
+}
 ]
 
 const articulos = [{
@@ -20,7 +20,7 @@ const articulos = [{
 },
 {
     codigo: 2,
-    codigoRubro:'2',
+    codigoRubro:'1',
     nombre: 'Microprocesador Intel Core i7',
     precio:1000
 },
