@@ -4,46 +4,61 @@ import { rubros } from './datos.js';
 import { articulos } from './datos.js';
 
 function App() {
+  // inicializa rubro con el primer elemento disponible
+  const [rubro, setRubro] = useState(rubros[0] ?? { codigo: '', nombre: '' });
 
-  const [rubro, setRubro] = useState(rubros[0]);
-  const [articulosRubro, setArticuloRubro] = useState(articulos.filter(articulo => articulo.codigoRubro === rubro.codigo));
-  const [articulo, setArticulo] = useState(articulosRubro[0]);
+  // convierte codigorubro a número al filtrar para evitar problemas de tipo
+  const inicialArticulos = articulos.filter(a => Number(a.codigorubro) === Number(rubro.codigo));
+  const [articulosRubro, setArticulosRubro] = useState(inicialArticulos);
+  const [articulo, setArticulo] = useState(inicialArticulos[0] ?? null);
 
-  function cambiarRubro(e){
-    setRubro(rubros.find(rubro => rubro.codigo === Number.parseInt(e.target.value)));
-    const articulosrubro = articulos.filter(articulo => articulo.codigoRubro === Number.parseInt(e.target.value));
-    setArticuloRubro(articulosrubro);
-    setArticulo(articulosrubro[0]);
+  function cambiarRubro(e) {
+    const codigoRubro = Number(e.target.value);
+    const nuevoRubro = rubros.find(r => r.codigo === codigoRubro) ?? rubros[0];
+    setRubro(nuevoRubro);
+
+    const articulosrubro = articulos.filter(a => Number(a.codigorubro) === codigoRubro);
+    setArticulosRubro(articulosrubro);
+    setArticulo(articulosrubro[0] ?? null);
   }
 
-  function cambiarArticulo(e){
-    setArticulo(articulosRubro.find(articulo => articulo.codigo === Number.parseInt(e.target.value)));  
+  function cambiarArticulo(e) {
+    const codigoArticulo = Number(e.target.value);
+    const nuevo = articulosRubro.find(a => a.codigo === codigoArticulo) ?? null;
+    setArticulo(nuevo);
   }
+
   return (
-    <div className="App">
+    <div className="formulario">
       <div>
-        <select value={rubro.codigo} onChange={cambiarRubro}>
-          {rubros.map(rubro => (
-            <option key={rubro.codigo} value={rubro.codigo}>
-              {rubro.nombre}
+        <select value={String(rubro.codigo)} onChange={cambiarRubro}>
+          {rubros.map(r => (
+            <option key={r.codigo} value={String(r.codigo)}>
+              {r.nombre}
             </option>
           ))}
         </select>
       </div>
+
       <div>
-        <select value={articulos.codigo} onChange={cambiarArticulo}>
-          {articulosRubro.map(articulo => (
-            <option key={articulo.codigo} value={articulo.codigo}>
-              {articulo.nombre}
-            </option>
-          ))}
+        <select value={articulo ? String(articulo.codigo) : ''} onChange={cambiarArticulo}>
+          {articulosRubro.length > 0 ? (
+            articulosRubro.map(a => (
+              <option key={a.codigo} value={String(a.codigo)}>
+                {a.nombre}
+              </option>
+            ))
+          ) : (
+            <option value="">No hay artículos</option>
+          )}
         </select>
       </div>
+
       <div>
         <ul>
-          <li>Rubro: <strong>{rubro.nombre}</strong></li>
-          <li>Artículo: <strong>{articulo.nombre}</strong></li>
-          <li>Precio: <strong>{articulo.precio}</strong></li>
+          <li>Rubro: <strong>{rubro?.nombre ?? '-'}</strong></li>
+          <li>Articulo: <strong>{articulo?.nombre ?? '-'}</strong></li>
+          <li>Precio: <strong>{articulo?.precio ?? '-'}</strong></li>
         </ul>
       </div>
     </div>
